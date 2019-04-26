@@ -39,23 +39,35 @@ class Actor {
         this.size = size;
         this.speed = speed;
     }
-
     act() {};
 
     get left() {
+        return this.pos.x;
+    }
+    get right() {
+        return this.pos.x + this.size.x;
+    }
+    get top() {
+        return this.pos.y;
+    }
+    get bottom() {
+        return this.pos.y + this.size.y;
+    }
+    get type() {
+        return 'actor';
+    }
+    isIntersect (checkObject) {
+        if (!checkObject || !(checkObject instanceof Actor) ) {
+            throw Error('Необходимо передать непустую переменную класса Actor.');
+        }
+        if (checkObject === this) {
+            return false;
+        }
 
     }
-
 }
 
 
+const result = new Actor();
 
-
-const z = new Vector(10, 10);
-const moveTo = new Vector(10,10);
-// const result = z.plus(test);
-const result = z.plus(moveTo.times(2));
-
-// console.log(z instanceof Vector);
-// console.log(moveTo instanceof Vector);
-console.log(result);
+console.log(result.isIntersect(result));
