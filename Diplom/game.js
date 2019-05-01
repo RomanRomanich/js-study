@@ -294,7 +294,7 @@ class Player extends Actor {
 
 
 /////////////////////////////////////////////////////////////
-const schemas = [
+/*const schemas = [
     [
         '         ',
         '         ',
@@ -323,3 +323,4 @@ const actorDict = {
 const parser = new LevelParser(actorDict);
 runGame(schemas, parser, DOMDisplay)
     .then(() => console.log('Вы выиграли приз!'));
+*/
