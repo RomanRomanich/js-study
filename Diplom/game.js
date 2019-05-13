@@ -226,7 +226,7 @@ class Fireball extends Actor{
     //расчет отражения от препятсвия
     handleObstacle() {
         this.speed.x *= -1;
-        this.speed.y *= -1;
+        //this.speed.y *= -1;
     }
     //проверка на налчие препятвий и изменение положения экземпляра
     act(time, level) {
@@ -308,33 +308,3 @@ console.log(`Текущая скорость: ${ball.speed.x}: ${ball.speed.y}`)
 console.log(typeof ball.speed.x);
 console.log(typeof ball.speed.y);
 
-
-// const schemas = [
-//     [
-//         '         ',
-//         '         ',
-//         '    =    ',
-//         '       o ',
-//         '     !xxx',
-//         ' @       ',
-//         'xxx!     ',
-//         '         '
-//     ],
-//     [
-//         '      v  ',
-//         '    v    ',
-//         '  v      ',
-//         '        o',
-//         '        x',
-//         '@   x    ',
-//         'x        ',
-//         '         '
-//     ]
-// ];
-// const actorDict = {
-//     '@': Player,
-//     'v': FireRain
-// }
-// const parser = new LevelParser(actorDict);
-// runGame(schemas, parser, DOMDisplay)
-//     .then(() => console.log('Вы выиграли приз!'));
