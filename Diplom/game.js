@@ -95,17 +95,17 @@ class Level {
     //определяет есть ли какой-то экземпляр класса Actor в переданной позиции (движущийся объект)
     actorAt(actor) {
         if (!(actor instanceof Actor) || !(actor) || (actor.speed = 0)) {
-            throw Error('Необходимо передать непустую переменную класса Actor.');
+            throw new Error('Необходимо передать непустую переменную класса Actor.');
         }
         return this.actors.find(elem => actor.isIntersect(elem));
     }
     //определяет есть ли какое-то препятствие в переданной позиции
     obstacleAt(position, size) {
         if (!(position instanceof Vector)){
-            throw Error('Переменная speed должна быть класса Vector.');
+            throw new Error('Переменная speed должна быть класса Vector.');
         }
         if (!(size instanceof Vector)) {
-            throw Error('Переменная speed должна быть класса Vector.');
+            throw new Error('Переменная speed должна быть класса Vector.');
         }
         if (position.x < 0 || (size.x + position.x) > this.height || position.y < 0) {
             return 'wall';
@@ -294,32 +294,47 @@ class Player extends Actor {
 
 
 /////////////////////////////////////////////////////////////
-const schemas = [
-    [
-        '         ',
-        '         ',
-        '    =    ',
-        '       o ',
-        '     !xxx',
-        ' @       ',
-        'xxx!     ',
-        '         '
-    ],
-    [
-        '      v  ',
-        '    v    ',
-        '  v      ',
-        '        o',
-        '        x',
-        '@   x    ',
-        'x        ',
-        '         '
-    ]
-];
-const actorDict = {
-    '@': Player,
-    'v': FireRain
-}
-const parser = new LevelParser(actorDict);
-runGame(schemas, parser, DOMDisplay)
-    .then(() => console.log('Вы выиграли приз!'));
+const time = 5;
+const speed = new Vector(1, 0);
+const position = new Vector(5, 5);
+
+const ball = new Fireball(position, speed);
+
+const nextPosition = ball.getNextPosition(time);
+console.log(`Новая позиция: ${nextPosition.x}: ${nextPosition.y}`);
+
+ball.handleObstacle();
+console.log(`Текущая скорость: ${ball.speed.x}: ${ball.speed.y}`);
+console.log(typeof ball.speed.x);
+console.log(typeof ball.speed.y);
+
+
+// const schemas = [
+//     [
+//         '         ',
+//         '         ',
+//         '    =    ',
+//         '       o ',
+//         '     !xxx',
+//         ' @       ',
+//         'xxx!     ',
+//         '         '
+//     ],
+//     [
+//         '      v  ',
+//         '    v    ',
+//         '  v      ',
+//         '        o',
+//         '        x',
+//         '@   x    ',
+//         'x        ',
+//         '         '
+//     ]
+// ];
+// const actorDict = {
+//     '@': Player,
+//     'v': FireRain
+// }
+// const parser = new LevelParser(actorDict);
+// runGame(schemas, parser, DOMDisplay)
+//     .then(() => console.log('Вы выиграли приз!'));
