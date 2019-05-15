@@ -94,7 +94,7 @@ class Level {
     }
     //определяет есть ли какой-то экземпляр класса Actor в переданной позиции (движущийся объект)
     actorAt(actor) {
-        if (!(actor instanceof Actor) || !(actor) || (actor.speed = 0)) {
+        if (!(actor instanceof Actor) || !(actor) || (actor.speed.x === 0 && actor.speed.y ===0)) {
             throw new Error('Необходимо передать непустую переменную класса Actor.');
         }
         return this.actors.find(elem => actor.isIntersect(elem));
@@ -107,10 +107,10 @@ class Level {
         if (!(size instanceof Vector)) {
             throw new Error('Переменная speed должна быть класса Vector.');
         }
-        if (position.x < 0 || (size.x + position.x) > this.height || position.y < 0) {
+        if (position.x < 0 || (size.x + position.x) > this.width || position.y < 0) {
             return 'wall';
         }
-        if (size.y + position.y > this.width) {
+        if (size.y + position.y > this.height) {
             return 'lava';
         }
         for (let y = Math.ceil(position.y); y <= Math.ceil(position.y + size.y); y++) {
@@ -226,7 +226,7 @@ class Fireball extends Actor{
     //расчет отражения от препятсвия
     handleObstacle() {
         this.speed.x *= -1;
-        //this.speed.y *= -1;
+        this.speed.y *= -1;
     }
     //проверка на налчие препятвий и изменение положения экземпляра
     act(time, level) {
@@ -285,7 +285,7 @@ class Coin extends Actor{
 }
 class Player extends Actor {
     constructor(pos = new Vector()) {
-        super(pos.plus(new Vector(0, -0.5)), new Vector(0.8,1.5), new Vector())
+        super(pos.plus(new Vector(0, -0.5)), new Vector(0.8,1.5))
     }
     get type() {
         return 'player';
@@ -294,16 +294,40 @@ class Player extends Actor {
 
 
 /////////////////////////////////////////////////////////////
-const time = 5;
-const speed = new Vector(1, 0);
-const position = new Vector(5, 5);
+const schemas = [
+    [
+        '       v ',
+        '@        ',
+        '         ',
+        '       o ',
+        '     !xxx',
+        '    =    ',
+        'xxx!  x! ',
+        '         '
+    ],
+    [
+        '      v  ',
+        '    v    ',
+        '  v      ',
+        '        o',
+        '        x',
+        '    x    ',
+        'x        ',
+        '         '
+    ]
+];
+const actorDict = {
+    '@': Player,
+    'v': FireRain,
+    'o': Coin,
+    '=': HorizontalFireball,
+    '|': VerticalFireball
+}
+const parser = new LevelParser(actorDict);
+runGame(schemas, parser, DOMDisplay)
+    .then(() => console.log('Вы выиграли приз!'));
+/*
+const act = new Actor;
+console.log(act.speed !== 0);
+*/
 
-const ball = new Fireball(position, speed);
-
-const nextPosition = ball.getNextPosition(time);
-console.log(`Новая позиция: ${nextPosition.x}: ${nextPosition.y}`);
-
-ball.handleObstacle();
-console.log(`Текущая скорость: ${ball.speed.x}: ${ball.speed.y}`);
-console.log(typeof ball.speed.x);
-console.log(typeof ball.speed.y);
