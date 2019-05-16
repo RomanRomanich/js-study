@@ -292,3 +292,16 @@ class Player extends Actor {
         return 'player';
     }
 }
+////////////////////////////////////////////////////////
+const actorDict = {
+    '@': Player,
+    'v': FireRain,
+    'o': Coin,
+    '=': HorizontalFireball,
+    '|': VerticalFireball
+};
+
+const schemas = loadLevels();
+const parser = new LevelParser(actorDict);
+runGame(schemas, parser, DOMDisplay)
+    .then(status => alert(`Игрок ${status}`));
