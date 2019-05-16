@@ -94,7 +94,7 @@ class Level {
     }
     //определяет есть ли какой-то экземпляр класса Actor в переданной позиции (движущийся объект)
     actorAt(actor) {
-        if (!(actor instanceof Actor) || !(actor) || (actor.speed.x === 0 && actor.speed.y ===0)) {
+        if (!(actor instanceof Actor) || !(actor)) {
             throw new Error('Необходимо передать непустую переменную класса Actor.');
         }
         return this.actors.find(elem => actor.isIntersect(elem));
