@@ -22,7 +22,7 @@ class Vector {
 class Actor {
     constructor(pos = new Vector(), size = new Vector(1,1), speed = new Vector()) {
         if (!(pos instanceof Vector)) {
-            throw Error('Переменная pos должна быть класса Vector.');
+            throw new Error('Переменная pos должна быть класса Vector.');
         }
         if (!(size instanceof Vector)) {
             throw new Error('Переменная size должна быть класса Vector.');
@@ -113,9 +113,10 @@ class Level {
         if (size.y + position.y > this.height) {
             return 'lava';
         }
+
         for (let y = Math.ceil(position.y); y < Math.ceil(position.y + size.y); y++) {
             for (let x = Math.floor(position.x); x < Math.ceil(position.x + size.x); x++) {
-                if (this.grid[y][x] !== ' ') {
+                if (this.grid[y][x] !== undefined) {
                     //some test
                     console.log(this.grid[y][x]);
                     return this.grid[y][x];
@@ -291,41 +292,3 @@ class Player extends Actor {
         return 'player';
     }
 }
-
-
-
-/////////////////////////////////////////////////////////////
-const schemas = [
-    [
-        '         ',
-        '@        ',
-        '         ',
-        '       o ',
-        '      xxx',
-        '         ',
-        'xxx      ',
-        '     xxx '
-    ],
-    [
-        '      v  ',
-        '         ',
-        '  v      ',
-        '        o',
-        '@        x',
-        '    x    ',
-        'x        ',
-        '         '
-    ]
-];
-const actorDict = {
-    '@': Player,
-    'v': FireRain,
-    'o': Coin,
-    '=': HorizontalFireball,
-    '|': VerticalFireball
-}
-const parser = new LevelParser(actorDict);
-runGame(schemas, parser, DOMDisplay)
-    .then(() => alert('Вы выиграли приз!'));
-const pl = new Player();
-console.log(pl.bottom);
