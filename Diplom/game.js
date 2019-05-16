@@ -7,7 +7,7 @@ class Vector {
     //Изменение положения объекта в зависимости от вектора движения
     plus (vector) {
         if (!(vector instanceof Vector)) {
-            throw Error('Можно прибавлять к вектору только вектор типа Vector.');
+            throw new Error('Можно прибавлять к вектору только вектор типа Vector.');
         } else {
             const x = this.x + vector.x, y = this.y + vector.y;
             return new Vector(x,y);
@@ -25,10 +25,10 @@ class Actor {
             throw Error('Переменная pos должна быть класса Vector.');
         }
         if (!(size instanceof Vector)) {
-            throw Error('Переменная size должна быть класса Vector.');
+            throw new Error('Переменная size должна быть класса Vector.');
         }
         if (!(speed instanceof Vector)) {
-            throw Error('Переменная speed должна быть класса Vector.');
+            throw new Error('Переменная speed должна быть класса Vector.');
         }
         this.pos = pos; // массив с координатами верхней левой точки экземпляра
         this.size = size; //массив с рамерами экемпляра
@@ -55,7 +55,7 @@ class Actor {
     //проверка эклемпляра класса на пересечение с препятсвиями
     isIntersect (checkObject) {
         if (!checkObject || !(checkObject instanceof Actor) ) {
-            throw Error('Необходимо передать непустую переменную класса Actor.');
+            throw new Error('Необходимо передать непустую переменную класса Actor.');
         }
         if (checkObject === this) {
             return false;
