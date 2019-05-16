@@ -113,8 +113,8 @@ class Level {
         if (size.y + position.y > this.height) {
             return 'lava';
         }
-        for (let y = Math.ceil(position.y); y <= Math.ceil(position.y + size.y); y++) {
-            for (let x = Math.ceil(position.x); x <= Math.ceil(position.x + size.x); x++) {
+        for (let y = Math.ceil(position.y); y < Math.ceil(position.y + size.y); y++) {
+            for (let x = Math.floor(position.x); x < Math.ceil(position.x + size.x); x++) {
                 if (this.grid[y][x] !== ' ') {
                     //some test
                     console.log(this.grid[y][x]);
@@ -293,24 +293,25 @@ class Player extends Actor {
 }
 
 
+
 /////////////////////////////////////////////////////////////
 const schemas = [
     [
-        '       v ',
+        '         ',
         '@        ',
         '         ',
         '       o ',
-        '     !xxx',
-        '    =    ',
-        'xxx!  x! ',
-        '         '
+        '      xxx',
+        '         ',
+        'xxx      ',
+        '     xxx '
     ],
     [
         '      v  ',
-        '    v    ',
+        '         ',
         '  v      ',
         '        o',
-        '        x',
+        '@        x',
         '    x    ',
         'x        ',
         '         '
@@ -325,9 +326,6 @@ const actorDict = {
 }
 const parser = new LevelParser(actorDict);
 runGame(schemas, parser, DOMDisplay)
-    .then(() => console.log('Вы выиграли приз!'));
-/*
-const act = new Actor;
-console.log(act.speed !== 0);
-*/
-
+    .then(() => alert('Вы выиграли приз!'));
+const pl = new Player();
+console.log(pl.bottom);
