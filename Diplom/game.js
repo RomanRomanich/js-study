@@ -307,4 +307,3 @@ ball.handleObstacle();
 console.log(`Текущая скорость: ${ball.speed.x}: ${ball.speed.y}`);
 console.log(typeof ball.speed.x);
 console.log(typeof ball.speed.y);
-
