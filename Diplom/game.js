@@ -117,8 +117,6 @@ class Level {
         for (let y = Math.ceil(position.y); y < Math.ceil(position.y + size.y); y++) {
             for (let x = Math.floor(position.x); x < Math.ceil(position.x + size.x); x++) {
                 if (this.grid[y][x] !== undefined) {
-                    //some test
-                    console.log(this.grid[y][x]);
                     return this.grid[y][x];
                 }
             }
@@ -226,8 +224,7 @@ class Fireball extends Actor{
     }
     //расчет отражения от препятсвия
     handleObstacle() {
-        this.speed.x *= -1;
-        this.speed.y *= -1;
+        this.speed = this.speed.times(-1);
     }
     //проверка на налчие препятвий и изменение положения экземпляра
     act(time, level) {
@@ -292,8 +289,8 @@ class Player extends Actor {
         return 'player';
     }
 }
-////////////////////////////////////////////////////////
-const actorDict = {
+
+lconst actorDict = {
     '@': Player,
     'v': FireRain,
     'o': Coin,
@@ -301,7 +298,9 @@ const actorDict = {
     '|': VerticalFireball
 };
 
-const schemas = loadLevels();
 const parser = new LevelParser(actorDict);
-runGame(schemas, parser, DOMDisplay)
-    .then(status => alert(`Игрок ${status}`));
+
+loadLevels()
+    .then((res) => {
+        runGame(JSON.parse(res), parser, DOMDisplay)
+            .then(() =>alert('Вы выиграли!'))
