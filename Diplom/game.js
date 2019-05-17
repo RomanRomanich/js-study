@@ -290,7 +290,7 @@ class Player extends Actor {
     }
 }
 
-lconst actorDict = {
+const actorDict = {
     '@': Player,
     'v': FireRain,
     'o': Coin,
